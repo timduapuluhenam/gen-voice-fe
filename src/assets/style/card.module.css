@@ -1,0 +1,11 @@
+.card{
+  width: 55vh;
+  height: auto;
+  background-color: #DAE1E7;
+  padding: 1vw;
+}
+
+.img{
+  width: 100%;
+  height: 45vh;
+}
