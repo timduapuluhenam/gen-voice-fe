@@ -1,12 +1,20 @@
 import React from 'react'
+import {
+  Routes,
+  Route
+} from 'react-router-dom'
 
 import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App () {
   return (
-    <div style={{ margin: '0', padding: '0' }}>
-      <Home/>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/register" element={<Register/>}/>
+    </Routes>
   )
 }
 
