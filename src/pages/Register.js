@@ -1,17 +1,25 @@
 import React, { useState } from 'react'
 import style from '../assets/style/loginRegister.module.css'
 
+import registerService from '../services/register'
+
 const Register = () => {
   const [data, setData] = useState({
     email: '',
     name: '',
+    username: '',
     address: '',
     password: ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    alert(JSON.stringify(data))
+    try {
+      const response = await registerService(data)
+      console.log(response)
+    } catch (exception) {
+      console.log(exception)
+    }
   }
   return (
     <div className={`container-fluid ${style.register} d-flex justify-content-center`}>
@@ -25,13 +33,16 @@ const Register = () => {
           {/* --- Input Name --- */}
           <label htmlFor='name' className='mt-2'>Name</label><br/>
           <input className={style.inputText} type='text' placeholder='Name' name='name' value={data.name} onChange={e => setData({ ...data, name: e.target.value })} required/><br/>
+          {/* --- Input Userame --- */}
+          <label htmlFor='name' className='mt-2'>Username</label><br/>
+          <input className={style.inputText} type='text' placeholder='Username' name='name' value={data.username} onChange={e => setData({ ...data, username: e.target.value })} required/><br/>
           {/* --- Input Address --- */}
           <label htmlFor='address' className='mt-2'>Address</label><br/>
           <input className={style.inputText} type='text' placeholder='Address' name='address' value={data.address} onChange={e => setData({ ...data, address: e.target.value })} required/><br/>
           {/* --- Input Password --- */}
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
-          <input className={`${style.loginBtn} mt-4 btn btn-dark`} type='button' value='Register'/>
+          <input className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit' value='Register'/>
         </form>
         <div className='mt-3'>
           <div className='text-white text-center my-2'>Already a member?</div>
