@@ -3,7 +3,14 @@ import style from '../assets/style/loginRegister.module.css'
 
 import registerService from '../services/register'
 
+import Spinner from '../components/Spinner'
+import { useNavigate } from 'react-router-dom'
+
 const Register = () => {
+  const navigate = useNavigate('')
+
+  const [loadingState, setLoadingState] = useState(false)
+
   const [data, setData] = useState({
     email: '',
     name: '',
@@ -14,9 +21,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoadingState(true)
+
     try {
-      const response = await registerService(data)
-      console.log(response)
+      await registerService(data)
+      navigate('/login')
     } catch (exception) {
       console.log(exception)
     }
@@ -42,7 +51,10 @@ const Register = () => {
           {/* --- Input Password --- */}
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
-          <input className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit' value='Register'/>
+          <button className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit'>
+            {!loadingState && 'Register'}
+            {loadingState && <Spinner/>}
+          </button>
         </form>
         <div className='mt-3'>
           <div className='text-white text-center my-2'>Already a member?</div>
