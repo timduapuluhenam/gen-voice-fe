@@ -6,6 +6,7 @@ import {
 
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Logout from './pages/Logout'
 import Register from './pages/Register'
 
 function App () {
@@ -14,6 +15,7 @@ function App () {
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
+      <Route path="/logout" element={<Logout/>}/>
     </Routes>
   )
 }
