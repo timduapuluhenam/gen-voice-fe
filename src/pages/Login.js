@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import style from '../assets/style/loginRegister.module.css'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import loginService from '../services/login'
 
+import Spinner from '../components/Spinner'
+
 const Login = () => {
+  const navigate = useNavigate()
+
   const [data, setData] = useState({
     username: '',
     password: ''
   })
+
+  const [loadingState, setLoadingState] = useState(false)
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('token')
@@ -19,10 +26,11 @@ const Login = () => {
 
   const handleLogin = async e => {
     e.preventDefault()
-
+    setLoadingState(true)
     try {
       const response = await loginService(data)
-      alert(response)
+      Cookies.set('token', response.data.token)
+      navigate('/')
     } catch (e) {
       alert(e)
     }
@@ -38,7 +46,11 @@ const Login = () => {
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
           <br/>
-          <input className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit' value='Login'/>
+          <button className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit'>
+            {!loadingState && 'Login'}
+            {loadingState && <Spinner/>}
+          </button>
+
         </form>
         <div className='mt-3'>
           <div className='text-white text-center my-2'>Not a member yet?</div>
