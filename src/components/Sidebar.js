@@ -52,7 +52,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li className='nav-item'>
-          <a href='/#' className='nav-link text-white'>
+          <a href='/logout' className='nav-link text-white'>
           <MdLogout className='align-middle'/>
           <span className='align-middle ms-1'>Logout</span>
           </a>
