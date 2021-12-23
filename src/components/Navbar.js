@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // import logo
 import Logo from '../assets/img/Logo.png'
@@ -6,7 +6,13 @@ import Logo from '../assets/img/Logo.png'
 // import css module
 import style from '../assets/style/navbar.module.css'
 
+import Cookies from 'js-cookie'
 const Navbar = () => {
+  const [checkCookie, setCheckCookie] = useState(undefined)
+
+  useEffect(() => {
+    setCheckCookie(Cookies.get('token'))
+  }, [])
   return (
     <div className={`${style.navbar} navbar p-3 navbar-expand-lg navbar-light bg-dark`}>
       {/* ---- Container Section ---- */}
@@ -19,11 +25,12 @@ const Navbar = () => {
         </div>
         {/* Menu Section */}
           <ul className={`navbar-nav ${style.navbarItem}`}>
-            <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Dashboard</li></a>
+            { checkCookie && <a className={`${style.a}`} href="/dashboard"><li className="nav-item px-3">Dashboard</li></a> }
             <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Check Invoice</li></a>
             <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Features</li></a>
             <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Help</li></a>
-            <a className={`${style.a}`} href="/#"><li className="nav-item ps-3">Login</li></a>
+            { checkCookie && <a className={`${style.a}`} href="/logout"><li className="nav-item ps-3">Logout</li></a>}
+            { !checkCookie && <a className={`${style.a}`} href="/login"><li className="nav-item ps-3">Login</li></a>}
           </ul>
       </div>
     </div>
