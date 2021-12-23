@@ -6,3 +6,7 @@
   font-weight: bolder;
   font-size: 1.5em;
 }
+
+.active{
+  background-color: #0D1A33;
+}
