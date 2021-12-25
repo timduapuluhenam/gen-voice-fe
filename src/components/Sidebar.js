@@ -21,37 +21,37 @@ const Sidebar = () => {
         <div style={{ margin: 'auto' }}>Organization Name</div>
       </div>
       <ul className='nav nav-pills flex-column mb-auto' style={{ background: '#1F3A57' }}>
-        <li className={`nav-item ${style.active}`}>
+        <li className={`nav-item ${style.active} p-1`}>
           <a href='/#' className='nav-link text-white'>
           <MdDashboard className='align-middle'/>
           <span className='align-middle ms-1'>Dashboard</span>
           </a>
         </li>
-        <li className='nav-item'>
+        <li className='nav-item p-1'>
           <a href='/#' className='nav-link text-white'>
           <HiDocumentReport className='align-middle'/>
           <span className='align-middle ms-1'>Report</span>
           </a>
         </li>
-        <li className='nav-item'>
+        <li className='nav-item p-1'>
           <a href='/#' className='nav-link text-white'>
           <HiOutlineClock className='align-middle'/>
           <span className='align-middle ms-1'>Tracks</span>
           </a>
         </li>
-        <li className='nav-item'>
+        <li className='nav-item p-1'>
           <a href='/#' className='nav-link text-white'>
           <MdSettings className='align-middle'/>
           <span className='align-middle ms-1'>Settings</span>
           </a>
         </li>
-        <li className='nav-item'>
+        <li className='nav-item p-1'>
           <a href='/#' className='nav-link text-white'>
           <MdHelpOutline className='align-middle'/>
           <span className='align-middle ms-1'>Help</span>
           </a>
         </li>
-        <li className='nav-item'>
+        <li className='nav-item p-1'>
           <a href='/logout' className='nav-link text-white'>
           <MdLogout className='align-middle'/>
           <span className='align-middle ms-1'>Logout</span>
