@@ -26,7 +26,7 @@ const Home = () => {
             Send Invoices to <br/> Your Customer Effectively
           </div>
           <div>
-            <button className={`btn btn-light p-3 fw-bold ${style.btnLanding}`}>Start Using GenVoice for Free</button>
+            <button className={`btn btn-light p-3 my-5 fw-bold ${style.btnLanding}`}>Start Using GenVoice for Free</button>
           </div>
           <div className={style.link}>
             <a href="/#">Check Our Features</a>

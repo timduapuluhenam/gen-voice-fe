@@ -3,14 +3,15 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Logout = () => {
-  const navigate = useNavigate()
-
-  Cookies.remove('token')
-  navigate('/')
+  const navigate = useNavigate
+  if (Cookies.get('token')) {
+    Cookies.remove('token')
+  }
 
   return (
-    <div>
-    </div>
+    <>
+      {navigate('/')}
+    </>
   )
 }
 
