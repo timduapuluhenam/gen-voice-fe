@@ -7,6 +7,8 @@ import Logo from '../assets/img/Logo.png'
 import style from '../assets/style/navbar.module.css'
 
 import Cookies from 'js-cookie'
+
+import { Link } from 'react-router-dom'
 const Navbar = () => {
   const [checkCookie, setCheckCookie] = useState(undefined)
 
@@ -25,12 +27,12 @@ const Navbar = () => {
         </div>
         {/* Menu Section */}
           <ul className={`navbar-nav ${style.navbarItem}`}>
-            { checkCookie && <a className={`${style.a}`} href="/dashboard"><li className="nav-item px-3">Dashboard</li></a> }
-            <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Check Invoice</li></a>
-            <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Features</li></a>
-            <a className={`${style.a}`} href="/#"><li className="nav-item px-3">Help</li></a>
-            { checkCookie && <a className={`${style.a}`} href="/logout"><li className="nav-item ps-3">Logout</li></a>}
-            { !checkCookie && <a className={`${style.a}`} href="/login"><li className="nav-item ps-3">Login</li></a>}
+            { checkCookie && <Link className={`${style.a}`} to="/dashboard"><li className="nav-item px-3">Dashboard</li></Link> }
+            <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Check Invoice</li></Link>
+            <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Features</li></Link>
+            <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Help</li></Link>
+            { checkCookie && <Link className={`${style.a}`} to="/logout"><li className="nav-item ps-3">Logout</li></Link>}
+            { !checkCookie && <Link className={`${style.a}`} to="/login"><li className="nav-item ps-3">Login</li></Link>}
           </ul>
       </div>
     </div>
