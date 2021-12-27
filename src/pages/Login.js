@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import style from '../assets/style/loginRegister.module.css'
 import { Navigate, useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { useCookies } from 'react-cookie'
 
 import loginService from '../services/login'
 
@@ -9,6 +10,8 @@ import Spinner from '../components/Spinner'
 
 const Login = () => {
   const navigate = useNavigate()
+
+  const [cookies, setCookie, removeCookie] = useCookies()
 
   const [data, setData] = useState({
     username: '',
@@ -29,7 +32,7 @@ const Login = () => {
     setLoadingState(true)
     try {
       const response = await loginService(data)
-      Cookies.set('token', response.data.token)
+      setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
       navigate('/')
     } catch (e) {
       alert(e)
