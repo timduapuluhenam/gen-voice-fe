@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import style from '../assets/style/loginRegister.module.css'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
 import loginService from '../services/login'
@@ -15,8 +15,6 @@ const Login = () => {
   const navigate = useNavigate()
   const [cookies, setCookie] = useCookies()
 
-  const [cookies, setCookie, removeCookie] = useCookies()
-
   const [error, setError] = useState(false)
   const [data, setData] = useState({
     username: '',
@@ -24,7 +22,6 @@ const Login = () => {
   })
 
   const [loadingState, setLoadingState] = useState(false)
-  const [error, setError] = useState(false)
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('token')
