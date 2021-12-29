@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 
 // import logo
@@ -6,15 +7,25 @@ import Logo from '../assets/img/Logo.png'
 // import css module
 import style from '../assets/style/navbar.module.css'
 
-import Cookies from 'js-cookie'
+import { useCookies } from 'react-cookie'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 const Navbar = () => {
+  const navigate = useNavigate()
+  const [cookies, setCookie, removeCookie] = useCookies()
   const [checkCookie, setCheckCookie] = useState(undefined)
 
   useEffect(() => {
-    setCheckCookie(Cookies.get('token'))
+    setCheckCookie(cookies.token)
   }, [])
+
+  const handleLogout = e => {
+    e.preventDefault()
+    removeCookie('token')
+    setCheckCookie(undefined)
+  }
+
   return (
     <div className={`${style.navbar} navbar p-3 navbar-expand-lg navbar-light bg-dark`}>
       {/* ---- Container Section ---- */}
@@ -31,7 +42,7 @@ const Navbar = () => {
             <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Check Invoice</li></Link>
             <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Features</li></Link>
             <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Help</li></Link>
-            { checkCookie && <Link className={`${style.a}`} to="/logout"><li className="nav-item ps-3">Logout</li></Link>}
+            { checkCookie && <a className={`${style.a}`} onClick={handleLogout} href='/#'><li className="nav-item ps-3">Logout</li></a>}
             { !checkCookie && <Link className={`${style.a}`} to="/login"><li className="nav-item ps-3">Login</li></Link>}
           </ul>
       </div>

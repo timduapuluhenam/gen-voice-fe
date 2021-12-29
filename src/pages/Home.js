@@ -13,7 +13,11 @@ import ImgBenefit2 from '../assets/img/benefit-2.jpg'
 import ImgBenefit3 from '../assets/img/benefit-3.png'
 import Avatar from '../assets/img/avatar.png'
 import { Icon } from '@iconify/react'
+
+import { useTitle } from 'react-use'
+
 const Home = () => {
+  useTitle('Home')
   return (
     <div>
       <Navbar/>

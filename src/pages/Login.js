@@ -8,11 +8,15 @@ import loginService from '../services/login'
 
 import Spinner from '../components/Spinner'
 
+import { useTitle } from 'react-use'
+
 const Login = () => {
+  useTitle('Login')
   const navigate = useNavigate()
 
   const [cookies, setCookie, removeCookie] = useCookies()
 
+  const [error, setError] = useState(false)
   const [data, setData] = useState({
     username: '',
     password: ''
@@ -33,9 +37,11 @@ const Login = () => {
     try {
       const response = await loginService(data)
       setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
+      setCookie('username', data.username, { path: '/', maxAge: 3600 })
       navigate('/')
-    } catch (e) {
-      alert(e)
+    } catch (exception) {
+      setError(true)
+      setLoadingState(false)
     }
   }
   return (
@@ -49,10 +55,18 @@ const Login = () => {
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
           <br/>
-          <button className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit'>
-            {!loadingState && 'Login'}
-            {loadingState && <Spinner/>}
-          </button>
+          <div className='d-flex justify-content-start align-items-center mt-4'>
+            <div>
+              <button className={`${style.loginBtn} btn btn-dark`} type='submit'>
+                {!loadingState && 'Login'}
+                {loadingState && <Spinner/>}
+              </button>
+            </div>
+            { error &&
+            <div className='ms-2 ' style={{ color: 'red' }}>
+              Invalid Credentials
+            </div>}
+          </div>
 
         </form>
         <div className='mt-3'>

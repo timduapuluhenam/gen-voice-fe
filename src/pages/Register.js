@@ -5,8 +5,10 @@ import registerService from '../services/register'
 
 import Spinner from '../components/Spinner'
 import { useNavigate } from 'react-router-dom'
+import { useTitle } from 'react-use'
 
 const Register = () => {
+  useTitle('Register')
   const navigate = useNavigate('')
 
   const [loadingState, setLoadingState] = useState(false)
