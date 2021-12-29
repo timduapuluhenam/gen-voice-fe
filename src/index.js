@@ -3,12 +3,23 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App'
+import { CookiesProvider } from 'react-cookie'
 import reportWebVitals from './reportWebVitals'
+import { Provider } from 'react-redux'
+import store from './utils/store'
+import client from './utils/graphql'
+import { ApolloProvider } from '@apollo/client'
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
+      </BrowserRouter>
+    </ApolloProvider>
+  </Provider>,
   document.getElementById('root')
 )
 

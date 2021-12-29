@@ -13,7 +13,11 @@ import ImgBenefit2 from '../assets/img/benefit-2.jpg'
 import ImgBenefit3 from '../assets/img/benefit-3.png'
 import Avatar from '../assets/img/avatar.png'
 import { Icon } from '@iconify/react'
+
+import { useTitle } from 'react-use'
+
 const Home = () => {
+  useTitle('Home')
   return (
     <div>
       <Navbar/>
@@ -26,7 +30,7 @@ const Home = () => {
             Send Invoices to <br/> Your Customer Effectively
           </div>
           <div>
-            <button className={`btn btn-light p-3 fw-bold ${style.btnLanding}`}>Start Using GenVoice for Free</button>
+            <button className={`btn btn-light p-3 my-5 fw-bold ${style.btnLanding}`}>Start Using GenVoice for Free</button>
           </div>
           <div className={style.link}>
             <a href="/#">Check Our Features</a>
