@@ -1,22 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import style from '../assets/style/loginRegister.module.css'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
+import Cookies from 'js-cookie'
 
 import loginService from '../services/login'
 
 import Spinner from '../components/Spinner'
 
-import { useTitle } from 'react-use'
-
 const Login = () => {
-  useTitle('Login')
   const navigate = useNavigate()
 
-  const [cookies, setCookie, removeCookie] = useCookies()
-
-  const [error, setError] = useState(false)
   const [data, setData] = useState({
     username: '',
     password: ''
@@ -36,12 +29,10 @@ const Login = () => {
     setLoadingState(true)
     try {
       const response = await loginService(data)
-      setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
-      setCookie('username', data.username, { path: '/', maxAge: 3600 })
+      Cookies.set('token', response.data.token)
       navigate('/')
-    } catch (exception) {
-      setError(true)
-      setLoadingState(false)
+    } catch (e) {
+      alert(e)
     }
   }
   return (
@@ -55,18 +46,10 @@ const Login = () => {
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
           <br/>
-          <div className='d-flex justify-content-start align-items-center mt-4'>
-            <div>
-              <button className={`${style.loginBtn} btn btn-dark`} type='submit'>
-                {!loadingState && 'Login'}
-                {loadingState && <Spinner/>}
-              </button>
-            </div>
-            { error &&
-            <div className='ms-2 ' style={{ color: 'red' }}>
-              Invalid Credentials
-            </div>}
-          </div>
+          <button className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit'>
+            {!loadingState && 'Login'}
+            {loadingState && <Spinner/>}
+          </button>
 
         </form>
         <div className='mt-3'>
