@@ -13,6 +13,7 @@ import { useTitle } from 'react-use'
 const Login = () => {
   useTitle('Login')
   const navigate = useNavigate()
+  const [cookies, setCookie] = useCookies()
 
   const [cookies, setCookie, removeCookie] = useCookies()
 
@@ -23,6 +24,7 @@ const Login = () => {
   })
 
   const [loadingState, setLoadingState] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('token')
@@ -72,7 +74,7 @@ const Login = () => {
         <div className='mt-3'>
           <div className='text-white text-center my-2'>Not a member yet?</div>
           <div className='d-flex justify-content-center w-100'>
-            <a href="/register"><button className={style.toRegisterBtn}>Start using GenVoice</button></a>
+            <Link to="/register"><button className={style.toRegisterBtn}>Start using GenVoice</button></Link>
           </div>
         </div>
       </div>
