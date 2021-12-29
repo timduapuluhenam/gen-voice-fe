@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import style from '../assets/style/loginRegister.module.css'
-import { Navigate, useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 import loginService from '../services/login'
 
@@ -9,6 +10,7 @@ import Spinner from '../components/Spinner'
 
 const Login = () => {
   const navigate = useNavigate()
+  const [cookies, setCookie] = useCookies()
 
   const [data, setData] = useState({
     username: '',
@@ -16,6 +18,7 @@ const Login = () => {
   })
 
   const [loadingState, setLoadingState] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('token')
@@ -29,10 +32,11 @@ const Login = () => {
     setLoadingState(true)
     try {
       const response = await loginService(data)
-      Cookies.set('token', response.data.token)
+      setCookie('token', response.data.token, { maxAge: 3600 })
       navigate('/')
     } catch (e) {
-      alert(e)
+      setError(true)
+      setLoadingState(false)
     }
   }
   return (
@@ -46,16 +50,25 @@ const Login = () => {
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
           <br/>
-          <button className={`${style.loginBtn} mt-4 btn btn-dark`} type='submit'>
-            {!loadingState && 'Login'}
-            {loadingState && <Spinner/>}
-          </button>
+          <div className='d-flex mt-3 justify-content-start'>
+            <div>
+              <button className={`${style.loginBtn} btn btn-dark`} type='submit'>
+                {!loadingState && 'Login'}
+                {loadingState && <Spinner/>}
+              </button>
+            </div>
+            { error &&
+            <div className='fw-bold d-flex align-items-center ms-3' style={{ color: 'red' }}>
+              Invalid Credentials
+            </div>
+            }
+          </div>
 
         </form>
         <div className='mt-3'>
           <div className='text-white text-center my-2'>Not a member yet?</div>
           <div className='d-flex justify-content-center w-100'>
-            <a href="/register"><button className={style.toRegisterBtn}>Start using GenVoice</button></a>
+            <Link to="/register"><button className={style.toRegisterBtn}>Start using GenVoice</button></Link>
           </div>
         </div>
       </div>
