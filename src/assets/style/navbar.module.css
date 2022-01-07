@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+
+.navbarItem{
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.logo{
+  color: white;
+  font-family: 'Dancing Script', cursive;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
+.a{
+  text-decoration: none;
+  color: white;
+}
+
+.a:hover{
+  color: inherit;
+  opacity: 0.8;
+}
