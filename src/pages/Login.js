@@ -8,10 +8,7 @@ import loginService from '../services/login'
 
 import Spinner from '../components/Spinner'
 
-import { useTitle } from 'react-use'
-
 const Login = () => {
-  useTitle('Login')
   const navigate = useNavigate()
   const [cookies, setCookie] = useCookies()
 
@@ -22,6 +19,7 @@ const Login = () => {
   })
 
   const [loadingState, setLoadingState] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('token')
@@ -38,7 +36,7 @@ const Login = () => {
       setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
       setCookie('userId', response.data.id, { path: '/', maxAge: 3600 })
       navigate('/')
-    } catch (exception) {
+    } catch (e) {
       setError(true)
       setLoadingState(false)
     }
@@ -54,7 +52,7 @@ const Login = () => {
           <label htmlFor='password' className='mt-2'>Password</label><br/>
           <input className={style.inputText} type='password' placeholder='Password' value={data.password} onChange={e => setData({ ...data, password: e.target.value })} required/>
           <br/>
-          <div className='d-flex justify-content-start align-items-center mt-4'>
+          <div className='d-flex mt-3 justify-content-start'>
             <div>
               <button className={`${style.loginBtn} btn btn-dark`} type='submit'>
                 {!loadingState && 'Login'}
@@ -62,9 +60,10 @@ const Login = () => {
               </button>
             </div>
             { error &&
-            <div className='ms-2 ' style={{ color: 'red' }}>
+            <div className='fw-bold d-flex align-items-center ms-3' style={{ color: 'red' }}>
               Invalid Credentials
-            </div>}
+            </div>
+            }
           </div>
 
         </form>
