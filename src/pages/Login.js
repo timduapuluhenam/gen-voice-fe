@@ -36,7 +36,7 @@ const Login = () => {
     try {
       const response = await loginService(data)
       setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
-      setCookie('username', data.username, { path: '/', maxAge: 3600 })
+      setCookie('userId', response.data.id, { path: '/', maxAge: 3600 })
       navigate('/')
     } catch (exception) {
       setError(true)
