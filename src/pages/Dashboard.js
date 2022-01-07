@@ -6,6 +6,9 @@ import MainDashboard from '../components/MainDashboard'
 
 import style from '../assets/style/dashboard.module.css'
 
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import ReactModal from 'react-modal'
 import readXlsxFile from 'read-excel-file'
 import Papa from 'papaparse'
@@ -20,8 +23,11 @@ const Dashboard = () => {
   const [invoiceName, setInvoiceName] = useState('')
   const [extension, setExtension] = useState('')
   const [toggleUpload, setToggleUpload] = useState(false)
+  const [date, setDate] = useState(new Date())
 
   const navigate = useNavigate()
+
+  const today = new Date()
 
   const handleToggleUpload = () => {
     setToggleUpload(!toggleUpload)
@@ -36,10 +42,10 @@ const Dashboard = () => {
 
   const handleUploadForm = e => {
     e.preventDefault()
-    console.log(extension)
     const data = {
       invoice: {
-        name: invoiceName
+        name: invoiceName,
+        TimeExpired: parseInt(Math.floor((date - today) / (1000 * 60 * 60 * 24)))
       },
       invoiceDetails: []
     }
@@ -94,9 +100,15 @@ const Dashboard = () => {
               <form className='form-control p-4' onSubmit={handleUploadForm}>
               <h3>Upload your data</h3>
                 <div className='my-3'>
-                  <input type='text' className='form-control' name='invoice_name' placeholder='Invoice Name' onChange={e => setInvoiceName(e.target.value)}/>
+                  <label>Invoice Name</label>
+                  <input type='text' className='form-control' name='invoice_name' placeholder='Enter your invoice name' onChange={e => setInvoiceName(e.target.value)}/>
+
+                  <div className='my-3'>
+                    <label>Expired Time</label>
+                    <DatePicker className='form-control w-25' selected={date} onChange={date => setDate(date)} minDate={today} dateFormat="d MMMM yyyy"/>
+                  </div>
                 </div>
-                <div className="input-group my-3">
+                <div className="input-group my-4">
                   <input type="file" className="form-control" id="inputGroupFile02" accept='.csv, .xlsx' onChange={handleFileChange} />
                   <label className="input-group-text" htmlFor="inputGroupFile02">Upload</label>
                 </div>

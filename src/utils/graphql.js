@@ -14,6 +14,8 @@ const wsLink = new WebSocketLink({
   uri: 'wss://artistic-mosquito-84.hasura.app/v1/graphql',
   options: {
     reconnect: true,
+    timeout: 10000,
+    lazy: true,
     connectionParams: {
       headers: {
         'content-type': 'application/json',
@@ -27,7 +29,7 @@ const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query)
     return (
-      definition.kind === 'OperationDefintion' &&
+      definition.kind === 'OperationDefinition' &&
       definition.operation === 'subscription'
     )
   },

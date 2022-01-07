@@ -12,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate()
   const [cookies, setCookie] = useCookies()
 
+  const [error, setError] = useState(false)
   const [data, setData] = useState({
     username: '',
     password: ''
@@ -32,7 +33,8 @@ const Login = () => {
     setLoadingState(true)
     try {
       const response = await loginService(data)
-      setCookie('token', response.data.token, { maxAge: 3600 })
+      setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
+      setCookie('userId', response.data.id, { path: '/', maxAge: 3600 })
       navigate('/')
     } catch (e) {
       setError(true)

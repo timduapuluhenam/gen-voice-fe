@@ -1,15 +1,29 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 import { addInvoice } from '../services/invoice'
 import { useCookies } from 'react-cookie'
+import Spinner from './Spinner'
 
 const Preview = () => {
   const { state } = useLocation()
   const [cookie] = useCookies()
-  const handleSubmit = () => {
-    addInvoice(state.sendData, cookie.token)
+  const [alert, setAlert] = useState('')
+  const [loading, setLoading] = useState(false)
+  console.log(state.sendData)
+  const handleSubmit = async () => {
+    setLoading(true)
+    try {
+      const response = await addInvoice(state.sendData, cookie.token)
+      console.log(response)
+      if (response) {
+        setAlert('success')
+      }
+      setLoading(false)
+    } catch (e) {
+      setAlert('error')
+      setLoading(false)
+    }
   }
-  console.log(cookie.token)
   return (
     <div style={{ margin: '10px 20px' }}>
       <table className="table">
@@ -34,7 +48,22 @@ const Preview = () => {
           })}
         </tbody>
       </table>
-      <button onClick={handleSubmit} className='btn btn-info text-white'>Send</button>
+      <button onClick={handleSubmit} className='btn btn-info text-white'>
+        {!loading && 'Send'}
+        {loading && <Spinner/>}
+      </button>
+      {alert === 'success' &&
+      <>
+        <span className='text-success mx-3 p-1'>
+          Data has been sent successfully
+        </span>
+        <Link to='/dashboard'>Back to Dashboard</Link>
+      </> }
+
+      {alert === 'error' &&
+      <div className="alert alert-danger p-1 w-auto my-2" role="alert">
+        There is an error when upload your data
+      </div>}
     </div>
   )
 }
