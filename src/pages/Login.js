@@ -19,7 +19,6 @@ const Login = () => {
   })
 
   const [loadingState, setLoadingState] = useState(false)
-  const [error, setError] = useState(false)
 
   useEffect(() => {
     const loggedUser = cookie.token
