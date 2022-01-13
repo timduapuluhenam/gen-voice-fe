@@ -1,0 +1,15 @@
+.headerDashboard{
+  width: 100%;
+  background: white;
+  box-shadow: -2px 7px 7px -2px rgba(0,0,0,0.20);
+  -webkit-box-shadow: -2px 7px 7px -2px rgba(0,0,0,0.20);
+  -moz-box-shadow: -2px 7px 7px -2px rgba(0,0,0,0.20);
+}
+.container{
+  width: 80%;
+}
+
+.titleDashboard{
+  font-size: 1.2em;
+  font-weight: bold;
+}
