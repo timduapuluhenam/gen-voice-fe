@@ -10,7 +10,7 @@ import Spinner from '../components/Spinner'
 
 const Login = () => {
   const navigate = useNavigate()
-  const [cookies, setCookie] = useCookies()
+  const [cookie, setCookie] = useCookies()
 
   const [error, setError] = useState(false)
   const [data, setData] = useState({
@@ -22,7 +22,7 @@ const Login = () => {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    const loggedUser = window.localStorage.getItem('token')
+    const loggedUser = cookie.token
     if (loggedUser) {
       return <Navigate replace to="/"/>
     }
@@ -35,6 +35,7 @@ const Login = () => {
       const response = await loginService(data)
       setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
       setCookie('userId', response.data.id, { path: '/', maxAge: 3600 })
+      setCookie('username', response.data.username, { path: '/', maxAge: 3600 })
       navigate('/')
     } catch (e) {
       setError(true)

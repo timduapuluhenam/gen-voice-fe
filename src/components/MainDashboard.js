@@ -19,7 +19,6 @@ import { getTotalOutstanding, getTotalClients, getTotalCollected, getLatestActiv
 
 import { HiOutlineClock } from 'react-icons/hi'
 import { MdDone, MdPerson } from 'react-icons/md'
-import { AiOutlineWarning } from 'react-icons/ai'
 import Spinner from './Spinner'
 import LoaderChart from './LoaderChart'
 import { getLast30Days, getLast6Month, getLast7Days, getLastYear, getLastWeek, getLastMonth, getLastSixMonthDate, getLastYearDate } from '../utils/date'
@@ -356,7 +355,6 @@ const MainDashboard = () => {
       }
     }
   }
-
   return (
     <div className={style.main} style={{ padding: '20px 20px' }}>
       <div className='row'>
@@ -365,10 +363,10 @@ const MainDashboard = () => {
             <div className="card-header fw-bold" style={{ background: '#DAE1E7' }}>
               Recent Activities
             </div>
-            {loadingActivity && <Spinner/>}
+            {loadingActivity && <li className='list-group-item'><Spinner/> Please Wait..</li>}
             {!loadingActivity &&
             <ul className="list-group list-group-flush">
-              {latestActivity?.map((activity, i) => <li className='list-group-item' key={i}>{activity.activity}</li>)}
+              {latestActivity?.map((activity, i) => <li className='list-group-item' style={{ fontSize: '0.8em' }} key={i}>{activity.activity}</li>)}
             </ul>}
           </div>
         </div>
@@ -386,15 +384,6 @@ const MainDashboard = () => {
                 <div>
                   {!loading && Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(totalOutstanding)}
                   {loading && <Spinner/>}
-                </div>
-              </li>
-              <li className="list-group-item d-flex justify-content-between">
-                <div>
-                  <AiOutlineWarning className='align-middle'/>
-                  <span className='align-middle px-2'>Total Overdue:</span>
-                </div>
-                <div>
-                  123124123
                 </div>
               </li>
               <li className="list-group-item d-flex justify-content-between">

@@ -9,10 +9,12 @@ import style from '../assets/style/sidebar.module.css'
 import { MdDashboard, MdSettings, MdHelpOutline, MdLogout } from 'react-icons/md'
 import { HiDocumentReport, HiOutlineClock } from 'react-icons/hi'
 import { useCookies } from 'react-cookie'
+import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
   const [cookies, setCookie, removeCookie] = useCookies()
   const navigate = useNavigate()
+  const page = useSelector(state => state.page)
 
   const handleLogout = e => {
     e.preventDefault()
@@ -32,17 +34,17 @@ const Sidebar = () => {
         <div style={{ margin: 'auto' }}>Organization Name</div>
       </div>
       <ul className='nav nav-pills flex-column mb-auto' style={{ background: '#1F3A57' }}>
-        <li className={`nav-item ${style.active} p-1`}>
+        <li className={`nav-item ${page === 'Dashboard' && style.active} p-1`}>
           <Link to='/dashboard' className='nav-link text-white'>
           <MdDashboard className='align-middle'/>
           <span className='align-middle ms-1'>Dashboard</span>
           </Link>
         </li>
-        <li className='nav-item p-1'>
-          <a href='/#' className='nav-link text-white'>
+        <li className={`nav-item p-1 ${page === 'Reports' && style.active}`}>
+          <Link to='/reports' className='nav-link text-white'>
           <HiDocumentReport className='align-middle'/>
-          <span className='align-middle ms-1'>Report</span>
-          </a>
+          <span className='align-middle ms-1'>Reports</span>
+          </Link>
         </li>
         <li className='nav-item p-1'>
           <a href='/#' className='nav-link text-white'>
