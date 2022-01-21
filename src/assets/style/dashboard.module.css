@@ -52,4 +52,7 @@
     left: 5vw;
     right: 5vw;
   }
+  .container{
+    width: 88%;
+  }
 }

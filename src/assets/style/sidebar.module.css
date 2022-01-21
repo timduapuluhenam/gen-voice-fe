@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-.logo{
+.container{
+  width: 20vw;
+  height: 100vh;
+  background: #0D1A33;
+  position: fixed; 
+  top: 0;
+  left: 0;
+}
+
+.orgName{
+  margin: auto;
+}
+
+.logoText{
   color: white;
   font-family: 'Dancing Script', cursive;
   font-weight: bolder;
@@ -9,4 +22,19 @@
 
 .active{
   background-color: #0D1A33;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebarText, .orgName, .orgSection, .logoText{
+    display: none;
+  }
+  .sidebarResponsive{
+    text-align: center;
+  }
+  .container{
+    width: 12vw;
+  }
+  .orgSection{
+    height: 0% !important;
+  }
 }

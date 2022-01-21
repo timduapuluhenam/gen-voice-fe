@@ -1,0 +1,20 @@
+.main{
+  width: 100%;
+  height: auto;
+}
+
+.periodChart{
+  width: 25%;
+}
+
+.activity{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+  .periodChart{
+    width: 50%;
+  }
+}
