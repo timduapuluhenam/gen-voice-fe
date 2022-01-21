@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://gen-voice-be.herokuapp.com/users/login'
+const baseUrl = 'http://13.250.107.155:8000/users/login'
 
 const login = async data => {
   const response = await axios.post(baseUrl, data, { crossdomain: true })

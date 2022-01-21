@@ -1,10 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import dataReducer from './reducers/dataReducer'
+import pageReducer from './reducers/pageReducer'
 
 const reducer = combineReducers({
-  data: dataReducer
+  page: pageReducer
 })
 
 const store = createStore(
