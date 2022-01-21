@@ -27,7 +27,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className={`${style.navbar} navbar p-3 navbar-expand-lg navbar-light bg-dark`}>
+    <div className={`${style.navbar} navbar p-3 navbar-expand-lg navbar-dark bg-dark`}>
       {/* ---- Container Section ---- */}
       <div className='container d-flex justify-content-between'>
 
@@ -36,15 +36,19 @@ const Navbar = () => {
           <img src={Logo} alt="logo" width="50" height="50"/>
           <span className={`h-4 ${style.logo}`}>GenVoice</span>
         </div>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon text-white"></span>
+        </button>
         {/* Menu Section */}
-          <ul className={`navbar-nav ${style.navbarItem}`}>
-            { checkCookie && <Link className={`${style.a}`} to="/dashboard"><li className="nav-item px-3">Dashboard</li></Link> }
-            <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Check Invoice</li></Link>
-            <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Features</li></Link>
-            <Link className={`${style.a}`} to="/#"><li className="nav-item px-3">Help</li></Link>
-            { checkCookie && <a className={`${style.a}`} onClick={handleLogout} href='/#'><li className="nav-item ps-3">Logout</li></a>}
-            { !checkCookie && <Link className={`${style.a}`} to="/login"><li className="nav-item ps-3">Login</li></Link>}
-          </ul>
+          <div className='collapse navbar-collapse justify-content-end' id='navbarNav'>
+            <ul className={`navbar-nav ${style.navbarItem}`}>
+                { checkCookie && <Link className={`${style.a}`} to="/dashboard"><li className="nav-item px-3 my-2">Dashboard</li></Link> }
+                <Link className={`${style.a}`} to="/features"><li className="nav-item px-3 my-2">Features</li></Link>
+                <Link className={`${style.a}`} to="/help"><li className="nav-item px-3 my-2">Help</li></Link>
+                { checkCookie && <a className={`${style.a}`} onClick={handleLogout} href='/#'><li className="nav-item ps-3 my-2">Logout</li></a>}
+                { !checkCookie && <Link className={`${style.a}`} to="/login"><li className="nav-item ps-3 my-2">Login</li></Link>}
+              </ul>
+          </div>
       </div>
     </div>
   )
