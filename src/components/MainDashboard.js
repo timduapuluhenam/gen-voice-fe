@@ -48,6 +48,7 @@ const MainDashboard = () => {
   const [receiveLastYear, setReceiveLastYear] = useState([])
   const [totalCollected, setTotalCollected] = useState()
   const [latestActivity, setLatestActivity] = useState()
+  console.log(latestActivity)
 
   const { data: collected, loading: loadingCollected } = useSubscription(getTotalCollected, { variables: { user_id: parseInt(cookie.userId) } })
   const { data: lastWeek } = useSubscription(getTotalInvoicedByTime, { variables: { today: getLastWeek(), userId: parseInt(cookie.userId) } })
@@ -366,7 +367,9 @@ const MainDashboard = () => {
             {loadingActivity && <li className='list-group-item'><Spinner/> Please Wait..</li>}
             {!loadingActivity &&
             <ul className="list-group list-group-flush">
-              {latestActivity?.map((activity, i) => <li className={`list-group-item ${style.activity}`} key={i}>{activity.activity}</li>)}
+              {latestActivity?.map((act, i) =>
+                <li className='list-group-item' key={i}>{act.activity}</li>
+              )}
             </ul>}
           </div>
         </div>
