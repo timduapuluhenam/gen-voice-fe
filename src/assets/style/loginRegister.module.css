@@ -41,14 +41,10 @@
   border-radius: 5px;
 }
 
-.inputText:hover{
+.inputText:focus, .inputText:active{
   outline: none;
   border: #0D1A33 2px solid;
   transition: border 200ms;
-}
-
-.inputText:focus{
-  outline: none;
 }
 
 .toRegisterBtn{

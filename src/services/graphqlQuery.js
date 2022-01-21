@@ -55,8 +55,16 @@ subscription MySubscription($today: timestamptz = "", $userId: bigint = "") {
 `
 export const getLatestActivity = gql`
 subscription MySubscription($userId: bigint = "") {
-  activities(limit: 4, order_by: {created_at: desc}, where: {user_id: {_eq: $userId}}) {
+  activities(limit: 3, order_by: {created_at: desc}, where: {user_id: {_eq: $userId}}) {
     activity
+  }
+}
+`
+export const getInvoiceNameByUserId = gql`
+query MyQuery($user_id: bigint = "") {
+  invoices(where: {user_id: {_eq: $user_id}}) {
+    id
+    name
   }
 }
 `

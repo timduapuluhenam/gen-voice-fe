@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 
-import style from '../assets/style/mainDashboard.css'
+import style from '../assets/style/mainDashboard.module.css'
 
 import {
   Chart as ChartJs,
@@ -19,7 +19,6 @@ import { getTotalOutstanding, getTotalClients, getTotalCollected, getLatestActiv
 
 import { HiOutlineClock } from 'react-icons/hi'
 import { MdDone, MdPerson } from 'react-icons/md'
-import { AiOutlineWarning } from 'react-icons/ai'
 import Spinner from './Spinner'
 import LoaderChart from './LoaderChart'
 import { getLast30Days, getLast6Month, getLast7Days, getLastYear, getLastWeek, getLastMonth, getLastSixMonthDate, getLastYearDate } from '../utils/date'
@@ -347,7 +346,7 @@ const MainDashboard = () => {
         position: 'top',
         align: 'start',
         labels: {
-          padding: 15
+          padding: 10
         }
       },
       title: {
@@ -356,23 +355,22 @@ const MainDashboard = () => {
       }
     }
   }
-
   return (
     <div className={style.main} style={{ padding: '20px 20px' }}>
       <div className='row'>
-        <div className='col me-1'>
+        <div className='col my-3'>
           <div className="card">
             <div className="card-header fw-bold" style={{ background: '#DAE1E7' }}>
               Recent Activities
             </div>
-            {loadingActivity && <Spinner/>}
+            {loadingActivity && <li className='list-group-item'><Spinner/> Please Wait..</li>}
             {!loadingActivity &&
             <ul className="list-group list-group-flush">
-              {latestActivity?.map((activity, i) => <li className='list-group-item' key={i}>{activity.activity}</li>)}
+              {latestActivity?.map((activity, i) => <li className={`list-group-item ${style.activity}`} key={i}>{activity.activity}</li>)}
             </ul>}
           </div>
         </div>
-        <div className='col'>
+        <div className='col my-3'>
           <div className="card">
             <div className="card-header fw-bold" style={{ background: '#DAE1E7' }}>
               Summary
@@ -386,15 +384,6 @@ const MainDashboard = () => {
                 <div>
                   {!loading && Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(totalOutstanding)}
                   {loading && <Spinner/>}
-                </div>
-              </li>
-              <li className="list-group-item d-flex justify-content-between">
-                <div>
-                  <AiOutlineWarning className='align-middle'/>
-                  <span className='align-middle px-2'>Total Overdue:</span>
-                </div>
-                <div>
-                  123124123
                 </div>
               </li>
               <li className="list-group-item d-flex justify-content-between">
@@ -428,7 +417,7 @@ const MainDashboard = () => {
               <div className='d-flex align-items-center fw-bold'>
                 Invoiced/Received
               </div>
-              <select className="form-select w-25" onChange={handleTimeStampChange}>
+              <select className={`${style.periodChart} form-select`} onChange={handleTimeStampChange}>
                 <option defaultValue={true} value='week'>Last Week</option>
                 <option value="month">Last Month</option>
                 <option value="sixMonths">Last 6 Months</option>

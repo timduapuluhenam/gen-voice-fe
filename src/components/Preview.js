@@ -9,7 +9,6 @@ const Preview = () => {
   const [cookie] = useCookies()
   const [alert, setAlert] = useState('')
   const [loading, setLoading] = useState(false)
-  console.log(state.sendData)
   const handleSubmit = async () => {
     setLoading(true)
     try {
@@ -23,6 +22,14 @@ const Preview = () => {
       setAlert('error')
       setLoading(false)
     }
+  }
+
+  if (!state) {
+    return (
+      <div style={{ margin: '10px 20px' }}>
+        <h3>Please upload the file first before preview it! </h3>
+      </div>
+    )
   }
   return (
     <div style={{ margin: '10px 20px' }}>
