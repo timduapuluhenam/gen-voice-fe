@@ -16,11 +16,14 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useTitle } from 'react-use'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../utils/reducers/pageReducer'
+import { useCookies } from 'react-cookie'
+import Error from './Error'
 
 ReactModal.setAppElement('#root')
 
 const Dashboard = () => {
   useTitle('Dashboard')
+  const [cookie] = useCookies()
   const [selectedFile, setSelectedFile] = useState(null)
   const [invoiceName, setInvoiceName] = useState('')
   const [extension, setExtension] = useState('')
@@ -31,6 +34,10 @@ const Dashboard = () => {
   dispatch(setPage('Dashboard'))
 
   const navigate = useNavigate()
+
+  if (!cookie.token) {
+    navigate('/login')
+  }
 
   const today = new Date()
 
@@ -146,8 +153,9 @@ const Dashboard = () => {
           </div>
         </nav>
         <Routes>
-          <Route path="" element={<MainDashboard />}/>
+          <Route path="/" element={<MainDashboard />}/>
           <Route path="preview_data" element={<Preview />}/>
+          <Route path="*" element={<Error/>}/>
         </Routes>
       </div>
     </div>

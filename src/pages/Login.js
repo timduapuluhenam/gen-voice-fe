@@ -7,8 +7,10 @@ import { useCookies } from 'react-cookie'
 import loginService from '../services/login'
 
 import Spinner from '../components/Spinner'
+import { useTitle } from 'react-use'
 
 const Login = () => {
+  useTitle('Login')
   const navigate = useNavigate()
   const [cookie, setCookie] = useCookies()
 
