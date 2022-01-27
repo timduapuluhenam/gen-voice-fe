@@ -2,9 +2,9 @@
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 
-const generatePDF = (invoices, username) => {
+const generatePDF = (invoices, name) => {
   const doc = new jsPDF()
-  doc.text(`Reports of ${username}`, 14, 15)
+  doc.text(`Reports of ${name}`, 14, 15)
 
   const addFooters = doc => {
     const pageCount = doc.internal.getNumberOfPages()

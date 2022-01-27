@@ -2,6 +2,7 @@ import React from 'react'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { Link } from 'react-router-dom'
 
 import LandingImage from '../assets/img/landing-stock-image.png'
 
@@ -30,10 +31,12 @@ const Home = () => {
             Send Invoices to <br/> Your Customer Effectively
           </div>
           <div>
-            <button className={`btn btn-light p-3 my-5 fw-bold ${style.btnLanding}`}>Start Using GenVoice for Free</button>
+            <Link to='/register'>
+              <button className={`btn btn-light p-3 my-5 fw-bold ${style.btnLanding}`}>Start Using GenVoice for Free</button>
+            </Link>
           </div>
           <div className={style.link}>
-            <a href="/#">Check Our Features</a>
+            <Link to="/features">Check Our Features</Link>
           </div>
         </div>
       </div>
@@ -50,9 +53,9 @@ const Home = () => {
       </div>
 
       <div className='container d-flex justify-content-center my-4'>
-        <a href="/#">
+        <Link to="/features">
           <button className={`btn fs-5 fw-light px-4 py-2 ${style.btn}`}>Learn More About GenVoice</button>
-        </a>
+        </Link>
       </div>
 
       <div className={style.review}>

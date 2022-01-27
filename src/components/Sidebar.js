@@ -30,8 +30,8 @@ const Sidebar = () => {
           <span className={style.logoText}>GenVoice</span>
         </div>
       </Link>
-      <div className={`h-25 m-0 fs-4 text-white d-flex justify-content-center ${style.orgSection}`} style={{ background: '#1F3A57' }}>
-        <div className={style.orgName}>{cookies.username}</div>
+      <div className={`h-25 p-3 text-center m-0 fs-4 text-white d-flex justify-content-center ${style.orgSection}`} style={{ background: '#1F3A57' }}>
+        <div className={style.orgName}>{cookies.name}</div>
       </div>
       <ul className='nav nav-pills flex-column mb-auto' style={{ background: '#1F3A57' }}>
         <li className={`nav-item ${style.sidebarResponsive} ${page === 'Dashboard' && style.active} p-1`}>

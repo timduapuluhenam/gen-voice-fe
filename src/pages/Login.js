@@ -34,9 +34,13 @@ const Login = () => {
     setLoadingState(true)
     try {
       const response = await loginService(data)
+      console.log(response.data)
       setCookie('token', response.data.token, { path: '/', maxAge: 3600 })
       setCookie('userId', response.data.id, { path: '/', maxAge: 3600 })
       setCookie('username', response.data.username, { path: '/', maxAge: 3600 })
+      setCookie('name', response.data.name, { path: '/', maxAge: 3600 })
+      setCookie('address', response.data.address, { path: '/', maxAge: 3600 })
+      setCookie('email', response.data.email, { path: '/', maxAge: 3600 })
       navigate('/')
     } catch (e) {
       setError(true)

@@ -4,7 +4,7 @@ import style from '../assets/style/loginRegister.module.css'
 import registerService from '../services/register'
 
 import Spinner from '../components/Spinner'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useTitle } from 'react-use'
 
 const Register = () => {
@@ -61,7 +61,7 @@ const Register = () => {
         <div className='mt-3'>
           <div className='text-white text-center my-2'>Already a member?</div>
           <div className='d-flex justify-content-center w-100 my-3'>
-            <a href="/login"><button className={style.toRegisterBtn}>Login</button></a>
+            <Link to="/login"><button className={style.toRegisterBtn}>Login</button></Link>
           </div>
         </div>
       </div>
