@@ -4,11 +4,9 @@ import { useTitle } from 'react-use'
 // import style from '../assets/style/mainDashboard.css'
 import style from '../assets/style/reports.module.css'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
 
 import { useCookies } from 'react-cookie'
-import { getInvoiceNameByUserId } from '../services/graphqlQuery'
-import { getInvoice } from '../services/invoice'
+import { getInvoice, getListInvoice } from '../services/invoice'
 import generatePDF from '../services/reportGenerator'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../utils/reducers/pageReducer'
@@ -26,39 +24,38 @@ const Reports = () => {
 
   const navigate = useNavigate()
   const [cookie] = useCookies()
-  const userId = cookie.userId
-  if (!userId) {
+  const token = cookie.token
+  if (!token) {
     navigate('/login')
   }
-  const { data: invoiceListData, loading: loadingInvoiceList } = useQuery(getInvoiceNameByUserId, { variables: { user_id: userId } })
+  // const { data: invoiceListData, loading: loadingInvoiceList } = useQuery(getInvoiceNameByUserId, { variables: { user_id: userId } })
 
   const dispatch = useDispatch()
   dispatch(setPage('Reports'))
 
   useEffect(() => {
-    setInvoiceList(invoiceListData?.invoices)
-  }, [loadingInvoiceList])
-
-  useEffect(() => {
     getInvoice(cookie.token)
       .then(res => setInvoiceDetailsData(res.data))
       .catch(e => console.log(e))
+
+    getListInvoice(cookie.token)
+      .then(res => setInvoiceList(res.data))
+      .catch(e => console.log(e))
   }, [])
-  console.log(invoiceDetailsData)
 
   const handleGenerateReport = e => {
     e.preventDefault()
     let temp = invoiceDetailsData
     if (invoiceFilter.invoiceStatus === 'paid') {
       temp = temp?.reduce((filtered, invoice) => {
-        if (invoice.status === 'Telah Dibayar') {
+        if (invoice.status === 'Paid') {
           filtered.push({ ...invoice })
         }
         return filtered
       }, [])
     } else if (invoiceFilter.invoiceStatus === 'unpaid') {
       temp = temp?.reduce((filtered, invoice) => {
-        if (invoice.status === 'Belum Dibayar') {
+        if (invoice.status === 'Not Paid') {
           filtered.push({ ...invoice })
         }
         return filtered
@@ -92,20 +89,21 @@ const Reports = () => {
             <div className='card-body '>
               <form onSubmit={handleGenerateReport}>
                 <div className='row'>
-                  <div className='col-3'>
+                  <div className='col-sm-3'>
                     <label>
                       Invoice Title
                     </label>
                     <select className='form-select' onChange={e => setInvoiceFilter({ ...invoiceFilter, invoiceName: e.target.value })}>
                       <option value='all' defaultValue={true}>All</option>
-                      { invoiceList?.map((invoice, i) =>
+                      {invoiceList && invoiceList?.map((invoice, i) =>
                         <option value={invoice.id} key={i}>{invoice.name}</option>
                       ) }
+                      {!invoiceList && <option>Loading....</option>}
                     </select>
                   </div>
                 </div>
                 <div className='row my-2'>
-                  <div className='col-3'>
+                  <div className='col-sm-3'>
                     <label>
                       Status
                     </label>
@@ -118,12 +116,12 @@ const Reports = () => {
                 </div>
                 <div className='mb-2 mt-4 d-flex justify-content-between'>
                     <button type='submit' className='btn btn-info text-white'>Generate Report</button>
-                    <button type='button' className='btn btn-success' onClick={() => generatePDF(filteredData, cookie.username)}>Download Report</button>
+                    <button type='button' className='btn btn-success' onClick={() => generatePDF(filteredData, cookie.name)}>Download Report</button>
                 </div>
               </form>
             </div>
           </div>
-          {filteredData.length === 0 && <h4 className='mt-3'>Please generate your report first...</h4>}
+          {filteredData.length === 0 && <h5 className='mt-3'>Please generate your report first...</h5>}
           {filteredData.length !== 0 &&
           <table className="table table-bordered my-2" style={{ fontSize: '0.75em' }}>
             <thead>
@@ -148,8 +146,8 @@ const Reports = () => {
                     <td>{invoice.created_at !== invoice.updated_at && new Date(invoice.updated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) }</td>
                     <td>{Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(invoice.amount)}</td>
                     <td>
-                      {invoice.status === 'Belum Dibayar' && <span className='text-danger fw-bold'>Belum Dibayar</span>}
-                      {invoice.status === 'Telah Dibayar' && <span className='text-success fw-bold'>Telah Dibayar</span>}
+                      {invoice.status === 'Not Paid' && <span className='text-danger fw-bold'>Not Paid</span>}
+                      {invoice.status === 'Paid' && <span className='text-success fw-bold'>Paid</span>}
                     </td>
                   </tr>
                 )

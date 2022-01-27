@@ -43,6 +43,7 @@ const Navbar = () => {
           <div className='collapse navbar-collapse justify-content-end' id='navbarNav'>
             <ul className={`navbar-nav ${style.navbarItem}`}>
                 { checkCookie && <Link className={`${style.a}`} to="/dashboard"><li className="nav-item px-3 my-2">Dashboard</li></Link> }
+                <Link className={`${style.a}`} to="/check_invoice"><li className="nav-item px-3 my-2">Check Invoice</li></Link>
                 <Link className={`${style.a}`} to="/features"><li className="nav-item px-3 my-2">Features</li></Link>
                 <Link className={`${style.a}`} to="/help"><li className="nav-item px-3 my-2">Help</li></Link>
                 { checkCookie && <a className={`${style.a}`} onClick={handleLogout} href='/#'><li className="nav-item ps-3 my-2">Logout</li></a>}

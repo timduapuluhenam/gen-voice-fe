@@ -13,6 +13,7 @@ import Help from './pages/Help'
 import Error from './pages/Error'
 import Feature from './pages/Feature'
 import Settings from './pages/Settings'
+import CheckInvoice from './pages/CheckInvoice'
 
 function App () {
   return (
@@ -25,6 +26,7 @@ function App () {
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/help" element={<Help/>}/>
+      <Route path="/check_invoice" element={<CheckInvoice/>}/>
       <Route path="*" element={<Error/>}/>
     </Routes>
   )
