@@ -7,6 +7,7 @@ import ImgBenefit2 from '../assets/img/benefit-2.jpg'
 import ImgBenefit3 from '../assets/img/benefit-3.png'
 import ImgBenefit4 from '../assets/img/benefit-4.png'
 import ImgBenefit5 from '../assets/img/benefit-5.png'
+import ImgBenefit6 from '../assets/img/benefit-6.png'
 import Footer from '../components/Footer'
 
 const Feature = () => {
@@ -32,7 +33,7 @@ const Feature = () => {
           <Card img={ImgBenefit4} title="Manage Multiple Businesses" text="Do you have multiple businesses with individual clients? You're in right place"/>
           <Card img={ImgBenefit5} title="Accept Online Payments" text="Accept credit cards and many
   payment gateways"/>
-          <Card img={ImgBenefit3} title="Tract Expenses & Mileage" text="Track expenses and trips
+          <Card img={ImgBenefit6} title="Tract Your Invoice" text="Track expenses and trips
   with ease"/>
         </div>
       </div>
