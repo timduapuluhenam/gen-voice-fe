@@ -10,6 +10,7 @@ import { getInvoice, getListInvoice } from '../services/invoice'
 import generatePDF from '../services/reportGenerator'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../utils/reducers/pageReducer'
+import Spinner from '../components/Spinner'
 
 const Reports = () => {
   useTitle('Reports')
@@ -21,6 +22,7 @@ const Reports = () => {
   })
   const [invoiceDetailsData, setInvoiceDetailsData] = useState([])
   const [filteredData, setFilteredData] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   const [cookie] = useCookies()
@@ -45,6 +47,11 @@ const Reports = () => {
 
   const handleGenerateReport = e => {
     e.preventDefault()
+    if (!invoiceDetailsData) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
     let temp = invoiceDetailsData
     if (invoiceFilter.invoiceStatus === 'paid') {
       temp = temp?.reduce((filtered, invoice) => {
@@ -115,7 +122,10 @@ const Reports = () => {
                   </div>
                 </div>
                 <div className='mb-2 mt-4 d-flex justify-content-between'>
-                    <button type='submit' className='btn btn-info text-white'>Generate Report</button>
+                    <button type='submit' className='btn btn-info text-white'>
+                      {loading && <Spinner/>}
+                      {!loading && 'Generate Report'}
+                    </button>
                     <button type='button' className='btn btn-success' onClick={() => generatePDF(filteredData, cookie.name)}>Download Report</button>
                 </div>
               </form>
