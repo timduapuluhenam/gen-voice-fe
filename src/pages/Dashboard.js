@@ -36,7 +36,7 @@ const Dashboard = () => {
   const navigate = useNavigate()
 
   if (!cookie.token) {
-    navigate('/login')
+    window.location.replace('/login')
   }
 
   const today = new Date()

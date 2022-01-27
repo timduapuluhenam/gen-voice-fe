@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-
+.navbar{
+  background: #0D1A33;
+}
 
 .navbarItem{
   color: white;

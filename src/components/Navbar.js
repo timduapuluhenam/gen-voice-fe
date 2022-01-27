@@ -27,7 +27,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className={`${style.navbar} navbar p-3 navbar-expand-lg navbar-dark bg-dark`}>
+    <div className={`${style.navbar} navbar p-3 navbar-expand-lg navbar-dark`}>
       {/* ---- Container Section ---- */}
       <div className='container d-flex justify-content-between'>
 
