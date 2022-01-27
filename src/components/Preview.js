@@ -13,7 +13,6 @@ const Preview = () => {
     setLoading(true)
     try {
       const response = await addInvoice(state.sendData, cookie.token)
-      console.log(response)
       if (response) {
         setAlert('success')
       }

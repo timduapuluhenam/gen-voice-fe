@@ -24,7 +24,7 @@ subscription MySubscription($user_id: bigint = "") {
 
 export const getTotalCollected = gql`
 subscription MySubscription($user_id: bigint = "") {
-  invoice_details_aggregate(where: {invoice: {user_id: {_eq: $user_id}}, status: {_eq: "Telah Dibayar"}}) {
+  invoice_details_aggregate(where: {invoice: {user_id: {_eq: $user_id}}, status: {_eq: "Paid"}}) {
     aggregate {
       sum {
         amount
@@ -46,7 +46,7 @@ subscription MySubscription($today: timestamptz = "", $userId: bigint = "") {
 
 export const getTotalReceivedByTime = gql`
 subscription MySubscription($today: timestamptz = "", $userId: bigint = "") {
-  invoice_details(where: {created_at: {_gte: $today}, invoice: {user_id: {_eq: $userId}}, status: {_eq: "Telah Dibayar"}}) {
+  invoice_details(where: {created_at: {_gte: $today}, invoice: {user_id: {_eq: $userId}}, status: {_eq: "Paid"}}) {
     created_at
     status
     amount
